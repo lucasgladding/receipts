@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import ReceiptsTable, { ReceiptsTableData, ReceiptsTableField } from './ReceiptsTable';
+import ReceiptsTable from './ReceiptsTable';
+import { ReceiptsTableData, ReceiptsTableField } from './useReceiptsTableData';
 
 describe('renders the headings', () => {
     const headings: string[] = [
@@ -25,7 +26,7 @@ describe('renders the data', () => {
     beforeAll(async () => {
         const response = await fetch('/receipts');
         const json = await response.json();
-        receipt = json.data.data[0];
+        receipt = json.data[0];
     });
 
     const strings: ReceiptsTableField[] = [

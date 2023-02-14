@@ -1,30 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect } from 'react';
 import { Format } from './Format';
-
-export interface ReceiptsTableData {
-    num: string;
-    vendor: string;
-    location: string;
-    status: string;
-    subtotal: number;
-    taxes: number;
-    total: number;
-}
-
-export type ReceiptsTableField = keyof ReceiptsTableData;
+import { useReceiptsTableData } from './useReceiptsTableData';
 
 function ReceiptsTable() {
-    const [data, setData] = useState<ReceiptsTableData[]>([]);
+    const { load, receipts } = useReceiptsTableData();
 
-    useEffect(() => {
-        load();
-    }, []);
-
-    async function load() {
-        const response = await fetch('/receipts');
-        const json = await response.json();
-        setData(json.data);
-    }
+    useEffect(load, []);
 
     return (
         <table>
@@ -40,7 +21,7 @@ function ReceiptsTable() {
                 </tr>
             </thead>
             <tbody>
-                {data.map((item) => (
+                {receipts.map((item) => (
                     <tr key={item.num}>
                         <td>{item.num}</td>
                         <td>{item.vendor}</td>
