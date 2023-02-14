@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { Format } from './Format';
 
 export interface ReceiptsTableData {
@@ -14,17 +14,17 @@ export interface ReceiptsTableData {
 export type ReceiptsTableField = keyof ReceiptsTableData;
 
 function ReceiptsTable() {
-    const record = {
-        num: '1234',
-        vendor: 'Acme Inc',
-        location: 'Waterloo, Ontario',
-        status: 'Paid',
-        subtotal: 100.00,
-        taxes: 13.00,
-        total: 113.00,
-    };
+    const [data, setData] = useState<ReceiptsTableData[]>([]);
 
-    const data = [record];
+    useEffect(() => {
+        load();
+    }, []);
+
+    async function load() {
+        const response = await fetch('/receipts');
+        const json = await response.json();
+        setData(json.data);
+    }
 
     return (
         <table>

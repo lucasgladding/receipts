@@ -20,6 +20,14 @@ describe('renders the headings', () => {
 });
 
 describe('renders the data', () => {
+    let receipt: ReceiptsTableData | undefined = undefined;
+
+    beforeAll(async () => {
+        const response = await fetch('/receipts');
+        const json = await response.json();
+        receipt = json.data.data[0];
+    });
+
     const strings: ReceiptsTableField[] = [
         'num',
         'vendor',
@@ -32,30 +40,20 @@ describe('renders the data', () => {
         'total',
     ];
 
-    const receipt: ReceiptsTableData = {
-        num: '1234',
-        vendor: 'Acme Inc',
-        location: 'Waterloo, Ontario',
-        status: 'Paid',
-        subtotal: 100.00,
-        taxes: 13.00,
-        total: 113.00,
-    };
-
-    it.each(strings)('renders the %s string field', (accessor: ReceiptsTableField) => {
+    it.each(strings)('renders the %s string field', async (accessor: ReceiptsTableField) => {
         render(<ReceiptsTable />);
-        expect(screen.getByText(receipt[accessor])).toBeInTheDocument();
+        expect(await screen.findByText(receipt![accessor])).toBeInTheDocument();
     });
 
-    it('renders the status field', () => {
+    it('renders the status field', async () => {
         render(<ReceiptsTable />);
-        expect(screen.getByText(receipt.status)).toBeInTheDocument();
+        expect(await screen.findByText(receipt!.status)).toBeInTheDocument();
     });
 
-    it.each(decimals)('renders the %s decimal field', (accessor: ReceiptsTableField) => {
-        const amount = receipt[accessor];
+    it.each(decimals)('renders the %s decimal field', async (accessor: ReceiptsTableField) => {
+        const amount = receipt![accessor];
         const expected = amount.toLocaleString();
         render(<ReceiptsTable />);
-        expect(screen.getByText(expected)).toBeInTheDocument();
+        expect(await screen.findByText(expected)).toBeInTheDocument();
     });
 });
