@@ -1,4 +1,5 @@
 import React from 'react';
+import { Format } from './Format';
 
 export interface TableData {
     num: string;
@@ -23,10 +24,6 @@ function ReceiptsTable() {
         total: 113.00,
     };
 
-    function formatDecimal(input: number): string {
-        return input.toLocaleString();
-    }
-
     return (
         <table>
             <thead>
@@ -46,9 +43,9 @@ function ReceiptsTable() {
                     <td>{record.vendor}</td>
                     <td>{record.location}</td>
                     <td>{record.status}</td>
-                    <td>{formatDecimal(record.subtotal)}</td>
-                    <td>{formatDecimal(record.taxes)}</td>
-                    <td>{formatDecimal(record.total)}</td>
+                    <td>{Format.amount(record.subtotal)}</td>
+                    <td>{Format.amount(record.taxes)}</td>
+                    <td>{Format.amount(record.total)}</td>
                 </tr>
             </tbody>
         </table>
