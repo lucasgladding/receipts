@@ -5,7 +5,7 @@ import { useReceiptsTableData } from './useReceiptsTableData';
 function ReceiptsTable() {
     const { load, receipts } = useReceiptsTableData();
 
-    useEffect(load, []);
+    useEffect(load, [load]);
 
     return (
         <table>
