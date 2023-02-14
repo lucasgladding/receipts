@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import ReceiptsTable, { TableData, TableDataField } from './ReceiptsTable';
+import ReceiptsTable, { ReceiptsTableData, ReceiptsTableField } from './ReceiptsTable';
 
 describe('renders the headings', () => {
     const headings: string[] = [
@@ -20,19 +20,19 @@ describe('renders the headings', () => {
 });
 
 describe('renders the data', () => {
-    const strings: TableDataField[] = [
+    const strings: ReceiptsTableField[] = [
         'num',
         'vendor',
         'location',
     ];
 
-    const decimals: TableDataField[] = [
+    const decimals: ReceiptsTableField[] = [
         'subtotal',
         'taxes',
         'total',
     ];
 
-    const receipt: TableData = {
+    const receipt: ReceiptsTableData = {
         num: '1234',
         vendor: 'Acme Inc',
         location: 'Waterloo, Ontario',
@@ -42,7 +42,7 @@ describe('renders the data', () => {
         total: 113.00,
     };
 
-    it.each(strings)('renders the %s string field', (accessor: TableDataField) => {
+    it.each(strings)('renders the %s string field', (accessor: ReceiptsTableField) => {
         render(<ReceiptsTable />);
         expect(screen.getByText(receipt[accessor])).toBeInTheDocument();
     });
@@ -52,7 +52,7 @@ describe('renders the data', () => {
         expect(screen.getByText(receipt.status)).toBeInTheDocument();
     });
 
-    it.each(decimals)('renders the %s decimal field', (accessor: TableDataField) => {
+    it.each(decimals)('renders the %s decimal field', (accessor: ReceiptsTableField) => {
         const amount = receipt[accessor];
         const expected = amount.toLocaleString();
         render(<ReceiptsTable />);

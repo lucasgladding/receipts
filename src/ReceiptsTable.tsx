@@ -1,7 +1,7 @@
 import React from 'react';
 import { Format } from './Format';
 
-export interface TableData {
+export interface ReceiptsTableData {
     num: string;
     vendor: string;
     location: string;
@@ -11,7 +11,7 @@ export interface TableData {
     total: number;
 }
 
-export type TableDataField = keyof TableData;
+export type ReceiptsTableField = keyof ReceiptsTableData;
 
 function ReceiptsTable() {
     const record = {
@@ -23,6 +23,8 @@ function ReceiptsTable() {
         taxes: 13.00,
         total: 113.00,
     };
+
+    const data = [record];
 
     return (
         <table>
@@ -38,15 +40,17 @@ function ReceiptsTable() {
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>{record.num}</td>
-                    <td>{record.vendor}</td>
-                    <td>{record.location}</td>
-                    <td>{record.status}</td>
-                    <td>{Format.amount(record.subtotal)}</td>
-                    <td>{Format.amount(record.taxes)}</td>
-                    <td>{Format.amount(record.total)}</td>
-                </tr>
+                {data.map((item) => (
+                    <tr key={item.num}>
+                        <td>{item.num}</td>
+                        <td>{item.vendor}</td>
+                        <td>{item.location}</td>
+                        <td>{item.status}</td>
+                        <td>{Format.amount(item.subtotal)}</td>
+                        <td>{Format.amount(item.taxes)}</td>
+                        <td>{Format.amount(item.total)}</td>
+                    </tr>
+                ))}
             </tbody>
         </table>
     );
