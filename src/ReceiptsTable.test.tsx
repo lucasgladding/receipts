@@ -48,7 +48,7 @@ describe('renders the data', () => {
         'location',
     ];
 
-    const decimals: ReceiptsTableField[] = [
+    const amounts: ReceiptsTableField[] = [
         'subtotal',
         'taxes',
         'total',
@@ -64,7 +64,7 @@ describe('renders the data', () => {
         expect(await screen.findAllByText(receipt!.status)).not.toHaveLength(0);
     });
 
-    it.each(decimals)('renders the %s money field', async (accessor: ReceiptsTableField) => {
+    it.each(amounts)('renders the %s amount field', async (accessor: ReceiptsTableField) => {
         const amount = receipt![accessor] as number;
         const expected = Format.money(amount);
         renderReceiptsTable();
