@@ -2,6 +2,7 @@ import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { render, screen } from '@testing-library/react';
 
+import { Format } from './Format';
 import ReceiptsTable from './ReceiptsTable';
 import { ReceiptsTableData, ReceiptsTableField } from './useReceiptsTableData';
 
@@ -63,9 +64,9 @@ describe('renders the data', () => {
         expect(await screen.findByText(receipt!.status)).toBeInTheDocument();
     });
 
-    it.each(decimals)('renders the %s decimal field', async (accessor: ReceiptsTableField) => {
-        const amount = receipt![accessor];
-        const expected = amount.toLocaleString();
+    it.each(decimals)('renders the %s money field', async (accessor: ReceiptsTableField) => {
+        const amount = receipt![accessor] as number;
+        const expected = Format.money(amount);
         renderReceiptsTable();
         expect(await screen.findByText(expected)).toBeInTheDocument();
     });

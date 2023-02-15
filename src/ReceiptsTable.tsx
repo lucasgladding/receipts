@@ -33,9 +33,9 @@ function ReceiptsTable() {
                         <td>{item.vendor}</td>
                         <td>{item.location}</td>
                         <td>{item.status}</td>
-                        <td>{Format.amount(item.subtotal)}</td>
-                        <td>{Format.amount(item.taxes)}</td>
-                        <td>{Format.amount(item.total)}</td>
+                        <td>{Format.money(item.subtotal)}</td>
+                        <td>{Format.money(item.taxes)}</td>
+                        <td>{Format.money(item.total)}</td>
                     </tr>
                 ))}
             </tbody>
