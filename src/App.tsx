@@ -1,8 +1,14 @@
 import React from 'react';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import ReceiptsTable from './ReceiptsTable';
+
+const client = new QueryClient();
 
 function App() {
   return (
-    <div className="App">App</div>
+    <QueryClientProvider client={client}>
+      <ReceiptsTable />
+    </QueryClientProvider>
   );
 }
 
