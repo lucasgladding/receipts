@@ -1,7 +1,19 @@
 import React from 'react';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { render, screen } from '@testing-library/react';
+
 import ReceiptsTable from './ReceiptsTable';
 import { ReceiptsTableData, ReceiptsTableField } from './useReceiptsTableData';
+
+const client = new QueryClient();
+
+function renderReceiptsTable() {
+    return render(
+        <QueryClientProvider client={client}>
+            <ReceiptsTable />
+        </QueryClientProvider>
+    );
+}
 
 describe('renders the headings', () => {
     const headings: string[] = [
@@ -14,9 +26,9 @@ describe('renders the headings', () => {
         'Total',
     ];
 
-    it.each(headings)('renders the %s heading', (heading) => {
-        render(<ReceiptsTable />);
-        expect(screen.getByText(heading)).toBeInTheDocument();
+    it.each(headings)('renders the %s heading', async (heading) => {
+        renderReceiptsTable();
+        expect(await screen.findByText(heading)).toBeInTheDocument();
     })
 });
 
@@ -42,19 +54,19 @@ describe('renders the data', () => {
     ];
 
     it.each(strings)('renders the %s string field', async (accessor: ReceiptsTableField) => {
-        render(<ReceiptsTable />);
+        renderReceiptsTable();
         expect(await screen.findByText(receipt![accessor])).toBeInTheDocument();
     });
 
     it('renders the status field', async () => {
-        render(<ReceiptsTable />);
+        renderReceiptsTable();
         expect(await screen.findByText(receipt!.status)).toBeInTheDocument();
     });
 
     it.each(decimals)('renders the %s decimal field', async (accessor: ReceiptsTableField) => {
         const amount = receipt![accessor];
         const expected = amount.toLocaleString();
-        render(<ReceiptsTable />);
+        renderReceiptsTable();
         expect(await screen.findByText(expected)).toBeInTheDocument();
     });
 });

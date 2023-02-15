@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useQuery } from 'react-query';
 
 export interface ReceiptsTableData {
     num: string;
@@ -12,17 +12,15 @@ export interface ReceiptsTableData {
 
 export type ReceiptsTableField = keyof ReceiptsTableData;
 
-async function execute(uri: string) {
-    const response = await fetch(uri);
-    return response.json();
+async function list(): Promise<ReceiptsTableData[]> {
+    const response = await fetch('/receipts');
+    const json = await response.json();
+    return json.data;
 }
 
 export const useReceiptsTableData = () => {
-    const [receipts, setReceipts] = useState<ReceiptsTableData[]>([]);
-
-    function load() {
-        execute('/receipts').then(({ data }) => setReceipts(data));
-    }
-
-    return { load, receipts };
+    const query = useQuery('receipts', list);
+    const loading = query.isLoading;
+    const receipts = query.data;
+    return { loading, receipts };
 };

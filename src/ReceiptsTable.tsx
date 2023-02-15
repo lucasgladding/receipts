@@ -1,11 +1,17 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Format } from './Format';
 import { useReceiptsTableData } from './useReceiptsTableData';
 
 function ReceiptsTable() {
-    const { load, receipts } = useReceiptsTableData();
+    const { loading, receipts } = useReceiptsTableData();
 
-    useEffect(load, [load]);
+    if (loading) {
+        return (<div>Loading...</div>);
+    }
+
+    if (!receipts) {
+        return (<div>Could not find receipts...</div>);
+    }
 
     return (
         <table>
