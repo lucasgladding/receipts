@@ -1,16 +1,5 @@
 import { useQuery } from 'react-query';
-
-export interface ReceiptsTableData {
-    num: string;
-    vendor: string;
-    location: string;
-    status: string;
-    subtotal: number;
-    taxes: number;
-    total: number;
-}
-
-export type ReceiptsTableField = keyof ReceiptsTableData;
+import { ReceiptsTableData } from './types/types';
 
 async function list(): Promise<ReceiptsTableData[]> {
     const response = await fetch('/receipts');

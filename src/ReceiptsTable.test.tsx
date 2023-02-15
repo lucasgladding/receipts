@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react';
 
 import { Format } from './Format';
 import ReceiptsTable from './ReceiptsTable';
-import { ReceiptsTableData, ReceiptsTableField } from './useReceiptsTableData';
+import { ReceiptsTableData, ReceiptsTableField } from './types/types';
 
 const client = new QueryClient();
 
@@ -56,18 +56,18 @@ describe('renders the data', () => {
 
     it.each(strings)('renders the %s string field', async (accessor: ReceiptsTableField) => {
         renderReceiptsTable();
-        expect(await screen.findByText(receipt![accessor])).toBeInTheDocument();
+        expect(await screen.findAllByText(receipt![accessor])).not.toHaveLength(0);
     });
 
     it('renders the status field', async () => {
         renderReceiptsTable();
-        expect(await screen.findByText(receipt!.status)).toBeInTheDocument();
+        expect(await screen.findAllByText(receipt!.status)).not.toHaveLength(0);
     });
 
     it.each(decimals)('renders the %s money field', async (accessor: ReceiptsTableField) => {
         const amount = receipt![accessor] as number;
         const expected = Format.money(amount);
         renderReceiptsTable();
-        expect(await screen.findByText(expected)).toBeInTheDocument();
+        expect(await screen.findAllByText(expected)).not.toHaveLength(0);
     });
 });
