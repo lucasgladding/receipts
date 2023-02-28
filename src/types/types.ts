@@ -1,6 +1,9 @@
+import { DateTime } from 'luxon';
+
 export interface ReceiptsTableData {
     num: string;
-    vendor: string;
+    contact: string;
+    date: DateTime;
     location: string;
     status: string;
     subtotal: number;

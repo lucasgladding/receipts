@@ -1,10 +1,12 @@
 import { rest } from 'msw';
 import { ReceiptsTableData } from '../types/types';
+import { DateTime } from 'luxon';
 
 const receipts: ReceiptsTableData[] = [
     {
         num: '1',
-        vendor: 'Acme Corp',
+        contact: 'Acme Corp',
+        date: DateTime.local(2022, 4, 1),
         location: 'Waterloo, Ontario',
         status: 'Paid',
         subtotal: 100.00,
@@ -13,7 +15,8 @@ const receipts: ReceiptsTableData[] = [
     },
     {
         num: '2',
-        vendor: 'Oscorp',
+        contact: 'Oscorp',
+        date: DateTime.local(2022, 5, 1),
         location: 'Kitchener, Ontario',
         status: 'Paid',
         subtotal: 200.00,
@@ -22,7 +25,8 @@ const receipts: ReceiptsTableData[] = [
     },
     {
         num: '3',
-        vendor: 'Wayne Enterprises',
+        contact: 'Wayne Enterprises',
+        date: DateTime.local(2022, 6, 1),
         location: 'Cambridge, Ontario',
         status: 'Paid',
         subtotal: 300.00,

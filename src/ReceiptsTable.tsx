@@ -18,7 +18,8 @@ function ReceiptsTable() {
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Vendor</th>
+                    <th>Contact</th>
+                    <th>Date</th>
                     <th>Location</th>
                     <th>Status</th>
                     <th>Subtotal</th>
@@ -30,7 +31,8 @@ function ReceiptsTable() {
                 {receipts.map((item) => (
                     <tr key={item.num}>
                         <td>{item.num}</td>
-                        <td>{item.vendor}</td>
+                        <td>{item.contact}</td>
+                        <td>{Format.date(item.date)}</td>
                         <td>{item.location}</td>
                         <td>{item.status}</td>
                         <td>{Format.money(item.subtotal)}</td>

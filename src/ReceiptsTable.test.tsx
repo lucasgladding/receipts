@@ -19,7 +19,8 @@ function renderReceiptsTable() {
 describe('renders the headings', () => {
     const headings: string[] = [
         '#',
-        'Vendor',
+        'Contact',
+        'Date',
         'Location',
         'Status',
         'Subtotal',
@@ -44,7 +45,7 @@ describe('renders the data', () => {
 
     const strings: ReceiptsTableField[] = [
         'num',
-        'vendor',
+        'contact',
         'location',
     ];
 
@@ -55,8 +56,9 @@ describe('renders the data', () => {
     ];
 
     it.each(strings)('renders the %s string field', async (accessor: ReceiptsTableField) => {
+        const target = receipt![accessor] as string;
         renderReceiptsTable();
-        expect(await screen.findAllByText(receipt![accessor])).not.toHaveLength(0);
+        expect(await screen.findAllByText(target)).not.toHaveLength(0);
     });
 
     it('renders the status field', async () => {
@@ -65,8 +67,8 @@ describe('renders the data', () => {
     });
 
     it.each(amounts)('renders the %s amount field', async (accessor: ReceiptsTableField) => {
-        const amount = receipt![accessor] as number;
-        const expected = Format.money(amount);
+        const target = receipt![accessor] as number;
+        const expected = Format.money(target);
         renderReceiptsTable();
         expect(await screen.findAllByText(expected)).not.toHaveLength(0);
     });
