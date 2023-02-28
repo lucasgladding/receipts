@@ -5,7 +5,7 @@ function amount(input: number): string {
 }
 
 function date(input: DateTime): string {
-    return input.toLocaleString();
+    return input.toFormat('yyyy-LL-dd');
 }
 
 function money(input: number): string {

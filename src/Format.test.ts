@@ -11,7 +11,7 @@ describe('amount', () => {
 describe('date', () => {
     it('formats a date', () => {
         const date = DateTime.local(2022, 6, 30);
-        expect(Format.date(date)).toEqual('6/30/2022');
+        expect(Format.date(date)).toEqual('2022-06-30');
     });
 });
 

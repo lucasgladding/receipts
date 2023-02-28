@@ -1,12 +1,13 @@
 import { rest } from 'msw';
 import { ReceiptsTableData } from '../types/types';
-import { DateTime } from 'luxon';
 
-const receipts: ReceiptsTableData[] = [
+type ReceiptsJsonData = Omit<ReceiptsTableData, 'date'> & { date: string }
+
+const receipts: ReceiptsJsonData[] = [
     {
         num: '1',
         contact: 'Acme Corp',
-        date: DateTime.local(2022, 4, 1),
+        date: '2022-04-01',
         location: 'Waterloo, Ontario',
         status: 'Paid',
         subtotal: 100.00,
@@ -16,7 +17,7 @@ const receipts: ReceiptsTableData[] = [
     {
         num: '2',
         contact: 'Oscorp',
-        date: DateTime.local(2022, 5, 1),
+        date: '2022-05-01',
         location: 'Kitchener, Ontario',
         status: 'Paid',
         subtotal: 200.00,
@@ -26,7 +27,7 @@ const receipts: ReceiptsTableData[] = [
     {
         num: '3',
         contact: 'Wayne Enterprises',
-        date: DateTime.local(2022, 6, 1),
+        date: '2022-06-01',
         location: 'Cambridge, Ontario',
         status: 'Paid',
         subtotal: 300.00,
