@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react';
 
 import { Format } from './Format';
 import ReceiptsTable from './ReceiptsTable';
-import { ReceiptsTableData, ReceiptsTableField } from './types/types';
+import { ReceiptsTableData, ReceiptsTableField } from './types/ReceiptsTableData';
 
 const client = new QueryClient();
 

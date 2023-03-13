@@ -1,14 +1,11 @@
 import { useQuery } from 'react-query';
-import { ReceiptsTableData } from './types/types';
-import { DateTime } from 'luxon';
+import { Receipt } from './types/Receipt';
+import { ReceiptsTableData } from './types/ReceiptsTableData';
 
 async function list(): Promise<ReceiptsTableData[]> {
     const response = await fetch('/receipts');
     const json = await response.json();
-    return json.data.map((data: any) => ({
-        ...data,
-        date: DateTime.fromISO(data.date),
-    }));
+    return json.data.map(Receipt.decode);
 }
 
 export const useReceiptsTableData = () => {

@@ -1,5 +1,5 @@
 import { rest } from 'msw';
-import { ReceiptsTableData } from '../types/types';
+import { ReceiptsTableData } from '../types/ReceiptsTableData';
 
 type ReceiptsJsonData = Omit<ReceiptsTableData, 'date'> & { date: string }
 
